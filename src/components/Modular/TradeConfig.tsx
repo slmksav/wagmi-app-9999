@@ -1,30 +1,31 @@
-import React, {useState, useRef} from 'react';
-import AutotradingButtons from './TradeConfig/AutoTradingButtons';
+import React, { useState, useRef } from "react";
+import AutotradingButtons from "./TradeConfig/AutoTradingButtons";
 import {
   TextField,
   ToggleButton,
   ToggleButtonGroup,
   Button,
-} from '@mui/material';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faGasPump} from '@fortawesome/free-solid-svg-icons';
-import TokenSelection from './TradeConfig/TokenSelection';
-import {styled} from '@mui/system';
-import EnterTokenButton from './TradeConfig/EnterTokenButton';
+} from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGasPump } from "@fortawesome/free-solid-svg-icons";
+import TokenSelection from "./TradeConfig/TokenSelection";
+import { styled } from "@mui/system";
+import EnterTokenButton from "./TradeConfig/EnterTokenButton";
+import GasValue from "./TokenInfo/GasValue";
 
 const CustomButton = styled(Button)({
-  background: 'transparent',
-  border: '1px solid white',
-  color: 'white',
-  '&:hover': {
-    background: 'transparent',
-    border: '1px solid #1076d2',
+  background: "transparent",
+  border: "1px solid white",
+  color: "white",
+  "&:hover": {
+    background: "transparent",
+    border: "1px solid #1076d2",
   },
 });
 
 const TradeConfig: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [inputType, setInputType] = useState<'token' | 'dollar'>('token');
+  const [inputType, setInputType] = useState<"token" | "dollar">("token");
   const [selectedContract, setSelectedContract] = useState<string | null>(null);
   const [resetTokenSelection, setResetTokenSelection] = useState(false);
 
@@ -38,7 +39,7 @@ const TradeConfig: React.FC = () => {
 
   const handleInputTypeChange = (
     event: React.MouseEvent<HTMLElement>,
-    newInputType: 'token' | 'dollar',
+    newInputType: "token" | "dollar"
   ) => {
     setInputType(newInputType);
   };
@@ -49,11 +50,11 @@ const TradeConfig: React.FC = () => {
 
   const numberDotPattern = /^[0-9.]*$/;
 
-  const [tradeAmount, setTradeAmount] = useState('');
+  const [tradeAmount, setTradeAmount] = useState("");
   const [tradeAmountValid, setTradeAmountValid] = useState(true);
-  const [stopLoss, setStopLoss] = useState('');
+  const [stopLoss, setStopLoss] = useState("");
   const [stopLossValid, setStopLossValid] = useState(true);
-  const [maxSlippage, setMaxSlippage] = useState('');
+  const [maxSlippage, setMaxSlippage] = useState("");
   const [maxSlippageValid, setMaxSlippageValid] = useState(true);
 
   const validateInput = (value: string) => {
@@ -61,19 +62,19 @@ const TradeConfig: React.FC = () => {
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
 
-    if (value.trim() === '' || !validateInput(value)) {
+    if (value.trim() === "" || !validateInput(value)) {
       switch (name) {
-        case 'tradeAmount':
+        case "tradeAmount":
           setTradeAmount(value);
           setTradeAmountValid(false);
           break;
-        case 'stopLoss':
+        case "stopLoss":
           setStopLoss(value);
           setStopLossValid(false);
           break;
-        case 'maxSlippage':
+        case "maxSlippage":
           setMaxSlippage(value);
           setMaxSlippageValid(false);
           break;
@@ -82,18 +83,18 @@ const TradeConfig: React.FC = () => {
       }
     } else {
       switch (name) {
-        case 'tradeAmount':
+        case "tradeAmount":
           setTradeAmount(value);
           setTradeAmountValid(true);
           break;
-        case 'stopLoss':
+        case "stopLoss":
           setStopLoss(value);
           setStopLossValid(true);
           break;
-        case 'maxSlippage':
+        case "maxSlippage":
           const numValue = parseFloat(value);
           const updatedValue = isNaN(numValue)
-            ? ''
+            ? ""
             : `${Math.min(numValue, 49).toFixed(2)}`;
           setMaxSlippage(updatedValue);
           setMaxSlippageValid(numValue <= 49);
@@ -109,19 +110,19 @@ const TradeConfig: React.FC = () => {
       tradeAmountValid &&
       stopLossValid &&
       maxSlippageValid &&
-      tradeAmount.trim() !== '' &&
-      stopLoss.trim() !== '' &&
-      maxSlippage.trim() !== ''
+      tradeAmount.trim() !== "" &&
+      stopLoss.trim() !== "" &&
+      maxSlippage.trim() !== ""
     );
   };
 
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   const [showVerification, setShowVerification] = useState(false);
-  const [tradeSummary, setTradeSummary] = useState('');
+  const [tradeSummary, setTradeSummary] = useState("");
 
   const handleTradeConfirmation = () => {
-    console.log('Trade Summary:', tradeSummary);
+    console.log("Trade Summary:", tradeSummary);
     setShowVerification(false);
   };
 
@@ -136,11 +137,11 @@ const TradeConfig: React.FC = () => {
 
       <div
         style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100%',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100%",
         }}
       >
         <TextField
@@ -149,14 +150,14 @@ const TradeConfig: React.FC = () => {
           className="mb-3 mt-2"
           fullWidth
           InputLabelProps={{
-            style: {color: 'white', fontFamily: 'Gruppo', fontWeight: '400'},
+            style: { color: "white", fontFamily: "Gruppo", fontWeight: "400" },
           }}
           inputProps={{
-            style: {color: 'white', fontFamily: 'Gruppo'},
+            style: { color: "white", fontFamily: "Gruppo" },
             pattern: numberDotPattern,
           }}
           error={!tradeAmountValid}
-          helperText={!tradeAmountValid ? 'Please enter a numeric value' : ''}
+          helperText={!tradeAmountValid ? "Please enter a numeric value" : ""}
           name="tradeAmount"
           onChange={handleInputChange}
         />
@@ -166,13 +167,13 @@ const TradeConfig: React.FC = () => {
           variant="outlined"
           className="mb-3 mt-2"
           fullWidth
-          InputLabelProps={{style: {color: 'white', fontFamily: 'Gruppo'}}}
+          InputLabelProps={{ style: { color: "white", fontFamily: "Gruppo" } }}
           inputProps={{
-            style: {color: 'white', fontFamily: 'Gruppo'},
+            style: { color: "white", fontFamily: "Gruppo" },
             pattern: numberDotPattern,
           }}
           error={!stopLossValid}
-          helperText={!stopLossValid ? 'Please enter a numeric value' : ''}
+          helperText={!stopLossValid ? "Please enter a numeric value" : ""}
           name="stopLoss"
           onChange={handleInputChange}
         />
@@ -182,14 +183,14 @@ const TradeConfig: React.FC = () => {
           variant="outlined"
           className="mb-3 mt-2"
           fullWidth
-          InputLabelProps={{style: {color: 'white', fontFamily: 'Gruppo'}}}
+          InputLabelProps={{ style: { color: "white", fontFamily: "Gruppo" } }}
           inputProps={{
-            style: {color: 'white', fontFamily: 'Gruppo'},
+            style: { color: "white", fontFamily: "Gruppo" },
             pattern: numberDotPattern,
           }}
           error={!maxSlippageValid}
           helperText={
-            !maxSlippageValid ? 'Please enter a percentual value' : ''
+            !maxSlippageValid ? "Please enter a percentual value" : ""
           }
           name="maxSlippage"
           value={maxSlippage}
@@ -197,7 +198,7 @@ const TradeConfig: React.FC = () => {
           InputProps={{
             // Set the color to white here
             endAdornment: (
-              <span style={{fontFamily: 'Gruppo', color: 'white'}}>%</span>
+              <span style={{ fontFamily: "Gruppo", color: "white" }}>%</span>
             ),
           }}
         />
@@ -208,14 +209,14 @@ const TradeConfig: React.FC = () => {
           onChange={handleInputTypeChange}
           className="mb-3"
           sx={{
-            flexDirection: {xs: 'column', sm: 'row'},
+            flexDirection: { xs: "column", sm: "row" },
           }}
         >
           <ToggleButton
             value="token"
             style={{
-              fontFamily: 'Audiowide, sans-serif',
-              color: inputType === 'token' ? '#1976d2' : 'white',
+              fontFamily: "Audiowide, sans-serif",
+              color: inputType === "token" ? "#1976d2" : "white",
             }}
           >
             Crypto
@@ -223,8 +224,8 @@ const TradeConfig: React.FC = () => {
           <ToggleButton
             value="dollar"
             style={{
-              fontFamily: 'Audiowide, sans-serif',
-              color: inputType === 'dollar' ? '#1976d2' : 'white',
+              fontFamily: "Audiowide, sans-serif",
+              color: inputType === "dollar" ? "#1976d2" : "white",
             }}
           >
             USD
@@ -232,17 +233,15 @@ const TradeConfig: React.FC = () => {
         </ToggleButtonGroup>
 
         <div
-          style={{display: 'flex', alignItems: 'center', marginBottom: '1rem'}}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginBottom: "1rem",
+          }}
         >
-          <div className="text-black">
-            <FontAwesomeIcon
-              icon={faGasPump}
-              style={{fontSize: '1.5rem', marginRight: '0.5rem'}}
-            />
-          </div>
           <div className="gruppo text-white">
             <span>
-              <b>Gas:</b> 14 Gwei
+              <GasValue />
             </span>
           </div>
         </div>
@@ -264,11 +263,10 @@ const TradeConfig: React.FC = () => {
         onClose={handleMenuClose}
         onSelectContract={handleContractSelect}
       />
-
       {selectedContract && (
         <div
           className="audiowide mt-2 text-white"
-          style={{fontSize: '0.35rem'}}
+          style={{ fontSize: "0.35rem" }}
         >
           Selected Contract: {selectedContract}
         </div>
