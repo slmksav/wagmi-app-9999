@@ -6,6 +6,8 @@ import RightSide from '../components/Modular/RightSide';
 import PreFooter from '../components/Modular/PreFooter';
 import Footer from '../components/Modular/Footer';
 
+import Helmet from 'react-helmet';
+
 import '../index.css';
 
 export default function Root() {
