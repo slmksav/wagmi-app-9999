@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Popover, Typography, IconButton } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
 import styled, { keyframes } from 'styled-components';
+import { useConnect, useAccount, useDisconnect } from 'wagmi';
 
 const pulseAnimation = keyframes`
   0% {
@@ -43,7 +44,7 @@ const InfoButton: React.FC = () => {
       <IconButton
         onClick={handlePopoverOpen}
         size="small"
-        sx={{ color: 'white', marginRight: '0.2rem', marginTop: '0.2rem' }} // Adjust margins as needed
+        sx={{ color: 'white', marginRight: '0.2rem', marginTop: '0.2rem' }}
       >
         <FontAwesomeIcon icon={faInfoCircle} />
       </IconButton>
@@ -79,42 +80,112 @@ const InfoButton: React.FC = () => {
 };
 
 const WalletDetails: React.FC = () => {
+  const { connect, connectors, error, isLoading, pendingConnector } = useConnect();
+  const { address, connector, isConnected } = useAccount();
+  const { disconnect } = useDisconnect()
+
+  // Function to connect wallet
+  const connectWallet = async () => {
+    if (connectors && connectors.length > 0) {
+      try {
+        await connect({ connector: connectors[0] });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  };
+
+  const disconnectWallet = async () => {
+    try {
+      await disconnect();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  // Handle wallet state changes
+  useEffect(() => {
+    if (isConnected) {
+      // Handle connected state
+      console.log("Wallet connected: ", address);
+    } else {
+      // Handle disconnected state
+      console.log("Wallet disconnected");
+    }
+  }, [isConnected, address]);
+
+
   return (
     <div className="flex ml-2 justify-between">
-      {/* Red round light */}
       <div className="flex items-center mr-2 text-sm allerta-stencil">
         <RedLight /> Wallet not connected!
       </div>
-      <Button
-        variant="contained"
-        color="primary"
-        sx={{
-          color: 'white',
-          border: '1px solid white',
-          background: 'transparent',
-          fontFamily: 'Audiowide',
-          padding: '0.4rem 0.45rem', // Add padding around the button (adjust as needed)
-          margin: '0.45rem', // Add margin all around the button (adjust as needed)
-          display: 'flex', // Set the button to use flexbox
-          alignItems: 'center', // Align items to the center
-          '&:hover': {
-            color: '#1976d2', // Replace with your primary color
-            border: '1px solid #1976d2', // Replace with your primary color
+      {isConnected ? (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={disconnectWallet}
+          sx={{
+            color: 'white',
+            border: '1px solid white',
             background: 'transparent',
-          },
-          '&:focus': {
-            color: '#1976d2', // Replace with your primary color
-            border: '1px solid #1976d2', // Replace with your primary color
-          },
-          '&:active': {
-            color: '#1976d2', // Replace with your primary color
-            border: '1px solid #1976d2', // Replace with your primary color
-          },
-        }}
-      >
-        <InfoButton />
-        <span style={{ flex: 1, marginTop: '4px' }}>Connect Wallet</span> {/* Use a span to allow the text to shrink */}
-      </Button>
+            fontFamily: 'Audiowide',
+            padding: '0.4rem 0.45rem',
+            margin: '0.45rem',
+            display: 'flex',
+            alignItems: 'center',
+            '&:hover': {
+              color: '#1976d2',
+              border: '1px solid #1976d2',
+              background: 'transparent',
+            },
+            '&:focus': {
+              color: '#1976d2',
+              border: '1px solid #1976d2',
+            },
+            '&:active': {
+              color: '#1976d2',
+              border: '1px solid #1976d2',
+            },
+          }}
+        >
+          Disconnect Wallet
+        </Button>
+      ) : (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={connectWallet}
+          sx={{
+            color: 'white',
+            border: '1px solid white',
+            background: 'transparent',
+            fontFamily: 'Audiowide',
+            padding: '0.4rem 0.45rem',
+            margin: '0.45rem',
+            display: 'flex',
+            alignItems: 'center',
+            '&:hover': {
+              color: '#1976d2',
+              border: '1px solid #1976d2',
+              background: 'transparent',
+            },
+            '&:focus': {
+              color: '#1976d2',
+              border: '1px solid #1976d2',
+            },
+            '&:active': {
+              color: '#1976d2',
+              border: '1px solid #1976d2',
+            },
+          }}
+        >
+          <InfoButton />
+          <span style={{ flex: 1, marginTop: '4px' }}>
+            Connect Wallet
+          </span>
+        </Button>
+      )}
     </div>
   );
 };
