@@ -1,0 +1,23 @@
+@import 'typeface-audiowide';
+@import 'typeface-allerta-stencil';
+@import 'typeface-gruppo';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Primary Font */
+.audiowide {
+  font-family: 'Audiowide', sans-serif;
+}
+
+/* Secondary Font */
+.allerta-stencil {
+  font-family: 'Allerta Stencil', sans-serif;
+}
+
+/* Tertiary Font */
+.gruppo {
+  font-family: 'Gruppo', sans-serif;
+  font-weight: 400;
+}

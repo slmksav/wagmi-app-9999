@@ -2,8 +2,9 @@ import { ConnectKitProvider } from 'connectkit'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom/client'
 import { WagmiConfig } from 'wagmi'
+import './index.css';
 
-import { App } from './App'
+import App from './App'
 import { config } from './wagmi'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

@@ -8,11 +8,28 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@jridgewell/sourcemap-codec": "^1.4.15",
+    "@mui/material": "^5.5.2",
+    "axios": "^1.4.0",
     "buffer": "^6.0.3",
     "connectkit": "^1.4.0",
+    "date-fns": "^2.30.0",
+    "framer-motion": "^10.15.0",
     "process": "^0.11.10",
     "react": "^18.2.0",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.2",
+    "react-use": "^17.4.0",
+    "styled-components": "^6.0.5",
+    "typeface-allerta-stencil": "^1.1.13",
+    "typeface-audiowide": "^1.1.13",
+    "typeface-gruppo": "^1.1.13",
     "util": "^0.12.4",
     "viem": "~0.3.36",
     "wagmi": "^1.0.6"
@@ -21,6 +38,9 @@
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
     "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.27",
+    "tailwindcss": "^3.3.3",
     "typescript": "^5.0.4",
     "vite": "^4.3.5"
   }
