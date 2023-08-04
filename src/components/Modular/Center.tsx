@@ -1,10 +1,24 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import styled from 'styled-components';
 import TradeConfig from './TradeConfig';
 import WalletDetails from './UserDetails/WalletDetails';
 import RatingBar from './RatingBar';
-import { Button } from '@mui/material'; // Import the Button component from MUI
+import { Button } from '@mui/material';
+import BuySellGraph from './BuySellGraph';
+import VolChangeGraph from './VolChangeGraph';
 
 const Center: React.FC = () => {
+  // Generate dummy data for buy and sell percentages
+  const buyPercentage = 70;
+  const sellPercentage = 30;
+  const buyVolumePercentage = 87;
+  const sellVolumePercentage = 13;
+  const buyVolume = 8700;
+  const sellVolume = 1300;
+  const buysAmount = 70;
+  const sellsAmount = 30;
+
   return (
     <div className="my-1 text-white">
       <WalletDetails />
@@ -19,20 +33,24 @@ const Center: React.FC = () => {
           <div className="col-span-1 row-span-2 bg-transparent flex flex-col justify-between">
             <div>
               <RatingBar score={76} />
-              <div className="gruppo mt-8 ml-5 text-left font-bold text-sm text-white">
+              <div className="gruppo text-center mt-2 font-bold text-sm text-white">
                 <b>HELIX SCORE</b>
               </div>
             </div>
-            {/* Add the button to the right of the graphic and text */}
+            <BuySellGraph buyPercentage={buyPercentage} sellPercentage={sellPercentage} buysAmount={buysAmount} sellsAmount={sellsAmount} />
+            <VolChangeGraph
+              buyVolume={buyVolume}
+              sellVolume={sellVolume}
+              buyVolumePercentage={buyVolumePercentage}
+              sellVolumePercentage={sellVolumePercentage}
+            />
             <div className="flex justify-end">
               <Button variant="contained" color="primary">
                 Click Me
               </Button>
             </div>
           </div>
-          <div className="col-span-2 row-span-1 bg-yellow-400">
-            Sup
-          </div>
+          <div className="col-span-2 row-span-1 bg-yellow-400">Sup</div>
         </div>
       </div>
     </div>

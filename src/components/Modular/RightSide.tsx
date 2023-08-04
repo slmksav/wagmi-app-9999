@@ -3,6 +3,13 @@ import EthLatestDeployed from './TokenInfo/EthLatestDeployed';
 import BscLatestDeployed from './TokenInfo/EthLatestDeployed'; // Fix import to BscLatestDeployed
 import ethchain from './img/ethchain.svg';
 import { Button, ButtonGroup } from '@mui/material'; // Import Button and ButtonGroup from Material UI
+import { Theme, SwapWidget } from "@uniswap/widgets";
+
+// Define a custom theme to override default attributes
+const theme: Theme = {
+  fontFamily: '"Helvetica"',
+};
+
 
 const RightSide: React.FC = () => {
   const [activeButton, setActiveButton] = useState('eth');
@@ -14,7 +21,6 @@ const RightSide: React.FC = () => {
   return (
     <div className="flex h-full flex-col space-y-4">
       <div className="flex-grow bg-white bg-opacity-5 p-2">
-        {/* Content for the first large box */}
       </div>
       <div className="flex-grow overflow-auto bg-white bg-opacity-5 p-1">
         <h2 className="audiowide text-center text-xl font-bold text-white">
