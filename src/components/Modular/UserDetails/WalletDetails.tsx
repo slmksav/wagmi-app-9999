@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@mui/material";
 import { RedLight, GreenLight, YellowLight } from "./ConnectionIndicators";
 import { useConnect, useAccount, useDisconnect, useBalance } from "wagmi";
+import { ConnectKitButton } from "connectkit";
+
 
 import ethchain from "../img/ethchain.svg";
 
@@ -104,6 +106,7 @@ const WalletDetails: React.FC = () => {
           </div>
         )}
       </div>
+      {/* <ConnectKitButton.Custom>
       {isConnected ? (
         <Button variant="outlined" color="primary" onClick={disconnectWallet}>
           <div className="audiowide">Disconnect Wallet</div>
@@ -113,6 +116,23 @@ const WalletDetails: React.FC = () => {
           <div className="audiowide">Connect Wallet</div>
         </Button>
       )}
+      </ConnectKitButton.Custom> */}
+
+<ConnectKitButton.Custom>
+      {({ isConnected, isConnecting, show,   }) => {
+        return (
+          <div className="flex flex-col">
+           
+            <div className="text-center">
+             <button onClick={show} className='p-1 px-4 mt-3 rounded-lg outline-red-500 outline outline-1 outline-offset-2 '>
+            {isConnected ? "Connected" : "Connect"}
+          </button>
+        
+            </div>
+          </div>
+        );
+      }}
+    </ConnectKitButton.Custom>
     </div>
   );
 };
